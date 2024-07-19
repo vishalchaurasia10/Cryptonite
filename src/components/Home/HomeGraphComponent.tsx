@@ -50,8 +50,8 @@ const HomeGraph = () => {
     const chartData = transformData()
 
     return (
-        <div className='flex justify-center items-center py-10 pr-10 border border-gray-300 rounded-lg'>
-            <ResponsiveContainer className='w-full' width={800} height={400}>
+        <div className='w-full flex justify-center items-center py-5 pt-8 lg:pt-10 lg:py-10 pr-5 lg:pr-10 border border-gray-300 rounded-lg'>
+            <ResponsiveContainer className='w-full' width="100%" height={400}>
                 <AreaChart
                     data={chartData}
                     margin={{

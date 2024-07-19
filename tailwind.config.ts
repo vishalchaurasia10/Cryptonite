@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
+        jost: ["Jost", "sans-serif"],
       },
       borderColor: {
         "white-variant": "rgba(255, 255, 255, 0.5)",

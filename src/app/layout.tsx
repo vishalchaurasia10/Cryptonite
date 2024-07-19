@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import SidePanelComponent from "@/components/SidePanel/SidePanelComponent";
-
-const poppins = Poppins({
-  weight: ["400", "500", "600"],
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,13 +15,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`ml-20 ${poppins.className}`}>
+      <body className={`lg:pl-20`}>
         <Navbar />
-        <div className="flex space-x-4 py-10">
-          <div className="w-[65%] flex items-center justify-center">
+        <div className="flex lg:space-x-4 pb-20 lg:pb-0 lg:py-5">
+          <div className="w-full lg:w-[65%] flex items-center justify-center">
             {children}
           </div>
-          <div className="w-[35%]">
+          <div className="lg:w-[35%]">
             <SidePanelComponent />
           </div>
         </div>
