@@ -1,11 +1,11 @@
 'use client'
 import useHoldingStore from '@/store/Holding'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import CoinHoldingComponent from './CoinHoldingComponent'
 
 const HoldingComponent = () => {
-
     const { data, fetchData } = useHoldingStore((state) => state)
+    const [selectedCoin, setSelectedCoin] = useState<'bitcoin' | 'ethereum'>('bitcoin')
 
     useEffect(() => {
         if (data.btc.length === 0 || data.eth.length === 0) {
@@ -17,10 +17,10 @@ const HoldingComponent = () => {
         console.log(data)
     }, [data])
 
+
     return (
-        <div className='space-y-5'>
-            <CoinHoldingComponent coin='bitcoin' data={data.btc} />
-            <CoinHoldingComponent coin='ethereum' data={data.eth} />
+        <div className='space-y-5 w-full shadow-2xl shadow-gray-400 border border-gray-300 rounded-lg'>
+            <CoinHoldingComponent coin={selectedCoin} data={selectedCoin === 'bitcoin' ? data.btc : data.eth} setSelectedCoin={setSelectedCoin} selectedCoin={selectedCoin} />
         </div>
     )
 }

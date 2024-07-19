@@ -17,7 +17,7 @@ const TrendingMarket = () => {
     }, [])
 
     return (
-        <div className='font-poppins w-full border border-gray-300 rounded-lg py-5 px-3 lg:p-6'>
+        <div className='font-poppins w-full border border-gray-300 rounded-lg py-5 px-3 lg:p-6 shadow-2xl shadow-gray-400'>
             <div className='flex justify-between items-center px-2 pb-5'>
                 <p className=' font-bold text-lg lg:text-2xl'>Trending Market</p>
                 <Link href='/explore'>

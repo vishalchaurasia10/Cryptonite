@@ -52,7 +52,7 @@ const HomeGraph = () => {
     const chartData = transformData()
 
     return (
-        <div className='w-full flex justify-center items-center py-5 pt-8 lg:pt-10 lg:py-10 pr-5 lg:pr-10 border border-gray-300 rounded-lg'>
+        <div className='w-full flex justify-center items-center py-5 pt-8 lg:pt-10 lg:py-10 pr-5 lg:pr-10 border border-gray-300 rounded-lg shadow-2xl shadow-gray-400'>
             <ResponsiveContainer className='w-full' width="100%" height={400}>
                 <AreaChart
                     data={chartData}
