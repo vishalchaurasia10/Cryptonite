@@ -5,6 +5,22 @@ import {
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts'
 
+export const formatYAxis = (tick: number) => {
+    if (tick >= 1_000_000_000_000) {
+        return `${(tick / 1_000_000_000_000).toFixed(0)}T`;
+    }
+    if (tick >= 1_000_000_000) {
+        return `${(tick / 1_000_000_000).toFixed(0)}B`;
+    }
+    if (tick >= 1_000_000) {
+        return `${(tick / 1_000_000).toFixed(0)}M`;
+    }
+    if (tick >= 1_000) {
+        return `${(tick / 1_000).toFixed(0)}k`;
+    }
+    return tick;
+};
+
 const HomeGraph = () => {
 
     const { data, fetchData } = useHomeGraphStore((state) => state)
@@ -15,16 +31,12 @@ const HomeGraph = () => {
         }
     }, [])
 
-    useEffect(() => {
-        console.log(data)
-    }, [data])
-
     // Transform the data into a suitable format for Recharts
     const transformData = () => {
         const transformed = []
-        const btcPrices = data.btc.prices
-        const ethPrices = data.eth.prices
-        const ltcPrices = data.ltc.prices
+        const btcPrices = data.btc.market_caps
+        const ethPrices = data.eth.market_caps
+        const ltcPrices = data.ltc.market_caps
 
         for (let i = 0; i < btcPrices.length; i++) {
             transformed.push({
@@ -36,16 +48,6 @@ const HomeGraph = () => {
         }
         return transformed
     }
-
-    const formatYAxis = (tick: number) => {
-        if (tick >= 1_000_000) {
-            return `${(tick / 1_000_000).toFixed(0)}M`;
-        }
-        if (tick >= 1_000) {
-            return `${(tick / 1_000).toFixed(0)}k`;
-        }
-        return tick;
-    };
 
     const chartData = transformData()
 

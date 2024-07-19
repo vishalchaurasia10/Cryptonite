@@ -16,10 +16,6 @@ const TrendingMarket = () => {
         }
     }, [])
 
-    useEffect(() => {
-        console.log(data)
-    }, [data])
-
     return (
         <div className='font-poppins w-full border border-gray-300 rounded-lg py-5 px-3 lg:p-6'>
             <div className='flex justify-between items-center px-2 pb-5'>
