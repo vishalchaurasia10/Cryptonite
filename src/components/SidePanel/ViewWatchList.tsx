@@ -1,24 +1,26 @@
 'use client';
 import useWatchlistStore from "@/store/Watchlist";
-import { useEffect, useState } from "react";
-import { FaDropbox } from "react-icons/fa";
+import { useEffect } from "react";
+import { FaBitcoin } from "react-icons/fa";
 import WatchListSideMenu from "./WatchListSideMenu";
 
 
 const ViewWatchList = () => {
-    const { activeCoin, setActiveCoin, addCoin, coinId } = useWatchlistStore((state) => state);
-    const [inRegion, setInRegion] = useState(false);
+    const { activeCoin, setActiveCoin, addCoin, coinId, loadCoinsFromLocalStorage } = useWatchlistStore((state) => state);
 
     useEffect(() => {
         console.log("list of coins", coinId);
     }, [coinId]);
+
+    useEffect(() => {
+        loadCoinsFromLocalStorage();
+    }, []);
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         if (activeCoin) {
             addCoin(activeCoin);
             setActiveCoin(null);
-            setInRegion(false);
         }
     }
 
@@ -28,12 +30,10 @@ const ViewWatchList = () => {
             {
                 activeCoin ?
                     <div
-                        onDragEnter={() => setInRegion(true)}
-                        onDragLeave={() => setInRegion(false)}
                         onDragOver={(e) => e.preventDefault()}
                         onDrop={handleDrop}
                         className="w-full h-full">
-                        <FaDropbox className={`${inRegion ? 'text-blue-500' : 'text-gray-400'} transition-all duration-300 h-full w-full`} />
+                        <FaBitcoin className={` text-orange-300 transition-all duration-300 h-full w-full`} />
                     </div>
                     :
                     <WatchListSideMenu />

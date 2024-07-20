@@ -11,6 +11,7 @@ interface WatchlistState {
     fetchData: () => Promise<void>;
     addCoin: (coinId: string) => void;
     removeCoin: (coinId: string) => void;
+    loadCoinsFromLocalStorage: () => void;
 }
 
 const WatchlistStore = (set: any, get: any): WatchlistState => ({
@@ -78,8 +79,16 @@ const WatchlistStore = (set: any, get: any): WatchlistState => ({
             return { coinId: newCoinId };
         });
         get().fetchData();
+    },
+    loadCoinsFromLocalStorage: () => {
+        const storedCoins = localStorage.getItem('watchlist-storage');
+        if (storedCoins) {
+            const parsedCoins = JSON.parse(storedCoins).state.coinId;
+            console.log('parsedCoins', parsedCoins);
+            set({ coinId: parsedCoins });
+            get().fetchData();
+        }
     }
-
 });
 
 const useWatchlistStore = create<WatchlistState>()(

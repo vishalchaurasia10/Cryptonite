@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
-import { FaChevronRight } from 'react-icons/fa';
 import { formatYAxis } from '@/components/Home/HomeGraphComponent';
 import useWatchlistStore from '@/store/Watchlist';
 
@@ -48,13 +47,7 @@ const ExploreComponent = () => {
     return (
         <div className='font-poppins w-full border border-gray-300 rounded-lg py-5 px-3 lg:p-6 shadow-2xl shadow-gray-400'>
             <div className='flex justify-between items-center px-2 pb-5'>
-                <p className=' font-bold text-lg lg:text-2xl'>All Coins</p>
-                <Link href='/explore'>
-                    <p className='flex group hover:bg-slate-200 p-2 lg:px-4 rounded-full items-center lg:space-x-1 text-slate-500 font-poppins transition-all duration-300'>
-                        <span className='font-bold whitespace-nowrap'>View more coins</span>
-                        <FaChevronRight className='group-hover:translate-x-0.5 transition-all duration-300' />
-                    </p>
-                </Link>
+                <p className=' font-bold text-lg lg:text-2xl'>Explore All Coins</p>
             </div>
             <div className='overflow-x-auto'>
                 <table className="table table-md">
@@ -74,11 +67,12 @@ const ExploreComponent = () => {
                     <tbody>
                         {data.map((coin, index) => (
                             <tr key={index}
-                                onDragStart={() => setActiveCoin(coin.id)}
-                                onDragEnd={() => setActiveCoin(null)}
-                                draggable
                             >
-                                <td className='flex space-x-2 items-center'>
+                                <td
+                                    onDragStart={() => setActiveCoin(coin.id)}
+                                    onDragEnd={() => setActiveCoin(null)}
+                                    draggable
+                                    className='flex space-x-2 items-center cursor-grab'>
                                     <Image className='h-4 w-4 rounded-full' src={coin.image} width={100} height={100} alt={coin.name} />
                                     <span>{coin.name}</span>
                                 </td>

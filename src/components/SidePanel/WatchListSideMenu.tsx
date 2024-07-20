@@ -3,6 +3,8 @@ import Image from 'next/image';
 import React from 'react'
 import { formatYAxis } from '../Home/HomeGraphComponent';
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
+import { FaChevronRight } from 'react-icons/fa';
+import Link from 'next/link';
 
 const WatchListSideMenu = () => {
 
@@ -10,6 +12,15 @@ const WatchListSideMenu = () => {
 
     return (
         <div className='overflow-x-auto font-poppins'>
+            <div className='flex justify-between items-center px-2 pb-5'>
+                <p className=' font-bold text-lg lg:text-2xl'>Watchlist</p>
+                <Link href='/explore'>
+                    <p className='flex group hover:bg-slate-200 p-2 lg:px-4 rounded-full items-center lg:space-x-1 text-slate-500 font-poppins transition-all duration-300'>
+                        <span className='font-bold whitespace-nowrap'>View All</span>
+                        <FaChevronRight className='group-hover:translate-x-0.5 transition-all duration-300' />
+                    </p>
+                </Link>
+            </div>
             <table className="table table-md">
                 <thead>
                     <tr>
