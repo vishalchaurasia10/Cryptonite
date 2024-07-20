@@ -66,16 +66,17 @@ const ExploreComponent = () => {
                     </thead>
                     <tbody>
                         {data.map((coin, index) => (
-                            <tr key={index}
-                            >
-                                <td
-                                    onDragStart={() => setActiveCoin(coin.id)}
-                                    onDragEnd={() => setActiveCoin(null)}
-                                    draggable
-                                    className='flex space-x-2 items-center cursor-grab'>
-                                    <Image className='h-4 w-4 rounded-full' src={coin.image} width={100} height={100} alt={coin.name} />
-                                    <span>{coin.name}</span>
-                                </td>
+                            <tr key={index}>
+                                <Link href={`/coins/${coin.id}`} passHref>
+                                    <td
+                                        onDragStart={() => setActiveCoin(coin.id)}
+                                        onDragEnd={() => setActiveCoin(null)}
+                                        draggable
+                                        className='flex space-x-2 items-center hover:underline cursor-grab'>
+                                        <Image className='h-4 w-4 rounded-full' src={coin.image} width={100} height={100} alt={coin.name} />
+                                        <span>{coin.name}</span>
+                                    </td>
+                                </Link>
                                 <td>${formatYAxis(coin.market_cap)}</td>
                                 <td>${formatYAxis(coin.total_volume)}</td>
                                 <td>${coin.current_price.toFixed(2)}</td>
