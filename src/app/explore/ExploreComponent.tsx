@@ -6,9 +6,11 @@ import React, { useEffect, useState } from 'react';
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
 import { FaChevronRight } from 'react-icons/fa';
 import { formatYAxis } from '@/components/Home/HomeGraphComponent';
+import useWatchlistStore from '@/store/Watchlist';
 
 const ExploreComponent = () => {
     const { data, fetchData } = useExploreStore((state) => state);
+    const { activeCoin, setActiveCoin } = useWatchlistStore((state) => state);
     const arr = ['price_change_24h', 'price_change_7d', 'price_change_30d', 'price_change_1y'];
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -30,7 +32,7 @@ const ExploreComponent = () => {
 
     const formatPriceChange = (value: number | null | undefined) => {
         if (value === null || value === undefined) return '-------';
-        return `${value.toFixed(1)}%`;
+        return `${Math.abs(parseFloat(value.toFixed(1)))}%`;
     };
 
     const handleNextPage = () => {
@@ -71,7 +73,11 @@ const ExploreComponent = () => {
                     </thead>
                     <tbody>
                         {data.map((coin, index) => (
-                            <tr key={index}>
+                            <tr key={index}
+                                onDragStart={() => setActiveCoin(coin.id)}
+                                onDragEnd={() => setActiveCoin(null)}
+                                draggable
+                            >
                                 <td className='flex space-x-2 items-center'>
                                     <Image className='h-4 w-4 rounded-full' src={coin.image} width={100} height={100} alt={coin.name} />
                                     <span>{coin.name}</span>

@@ -21,7 +21,7 @@ export default function RootLayout({
           <div className="w-full lg:w-[65%] flex items-center justify-center">
             {children}
           </div>
-          <div className="lg:w-[35%]">
+          <div className="fixed top-8 right-0 lg:w-[35%] h-full flex items-center justify-center">
             <SidePanelComponent />
           </div>
         </div>
