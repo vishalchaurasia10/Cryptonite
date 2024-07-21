@@ -1,12 +1,10 @@
 import React from 'react'
-import CoinGraph from './CoinGraph'
-import CoinInfo from './CoinInfo'
+import CoinData from './CoinData'
 
 const page = ({ params }: any) => {
     return (
         <div className="w-full p-3 lg:flex lg:flex-col justify-center items-center">
-            <CoinGraph id={params.id} />
-            <CoinInfo id={params.id} />
+            <CoinData id={params.id} />
         </div>
     )
 }
