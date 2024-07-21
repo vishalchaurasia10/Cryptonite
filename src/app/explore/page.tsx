@@ -1,5 +1,11 @@
 import React from 'react'
 import ExploreComponent from './ExploreComponent'
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Explore | Cryptonite",
+    description: "Welcome to Cryptonite, the best place to explore new coins.",
+};
 
 const page = () => {
     return (
