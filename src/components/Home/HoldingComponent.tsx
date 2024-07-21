@@ -13,11 +13,6 @@ const HoldingComponent = () => {
         }
     }, [])
 
-    useEffect(() => {
-        console.log(data)
-    }, [data])
-
-
     return (
         <div className='space-y-5 w-full shadow-2xl shadow-gray-400 border border-gray-300 rounded-lg'>
             <CoinHoldingComponent coin={selectedCoin} data={selectedCoin === 'bitcoin' ? data.btc : data.eth} setSelectedCoin={setSelectedCoin} selectedCoin={selectedCoin} />

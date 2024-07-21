@@ -2,7 +2,7 @@ import React from 'react'
 import { CoinData } from './CoinData'
 import Image from 'next/image'
 import { checkForNull } from './CoinInfo'
-import { BsArrowDown, BsFilePlus } from 'react-icons/bs'
+import { BsArrowDown, BsArrowUp, BsFilePlus } from 'react-icons/bs'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
 import useWatchlistStore from '@/store/Watchlist'
 
@@ -21,7 +21,7 @@ const CoinHeader = ({ coin }: { coin: CoinData | null }) => {
                         {coin?.market_data.price_change_percentage_24h !== undefined && coin?.market_data.price_change_percentage_24h < 0 ?
                             <BsArrowDown />
                             :
-                            <BsArrowDown />
+                            <BsArrowUp />
                         }
                         <span>
                             {coin?.market_data.price_change_percentage_24h}%

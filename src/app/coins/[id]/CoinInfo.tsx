@@ -31,15 +31,15 @@ const CoinInfo = ({ coin }: { coin: CoinData | null }) => {
                         <div className='flex items-center justify-center text-sm lg:text-base'>
                             <p className='flex flex-col w-1/5 lg:w-[15%]'>
                                 <span>Today&apos;s Low</span>
-                                <span className='font-bold'>{checkForNull((coin.market_data.low_24h.usd).toFixed(3))}</span>
+                                <span className='font-bold'>${checkForNull((coin.market_data.low_24h.usd).toFixed(3))}</span>
                             </p>
-                            <div className="tooltip tooltip-open w-[70%]" data-tip={coin.market_data.current_price.usd}>
+                            <div className="tooltip tooltip-open w-[70%]" data-tip={`$${coin.market_data.current_price.usd}`}>
                                 <div className="line bg-green-600 h-2 w-full rounded-full"></div>
                             </div>
 
                             <p className='flex flex-col items-end w-1/5 lg:w-[15%]'>
                                 <span className='text-right'>Today&apos;s High</span>
-                                <span className='font-bold'>{checkForNull((coin.market_data.high_24h.usd).toFixed(3))}</span>
+                                <span className='font-bold'>${checkForNull((coin.market_data.high_24h.usd).toFixed(3))}</span>
                             </p>
                         </div>
                     </div>

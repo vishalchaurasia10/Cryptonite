@@ -20,16 +20,13 @@ const useHomeGraphStore = create<HomeGraphState>((set) => ({
     },
     fetchData: async () => {
         const coins = ['bitcoin', 'ethereum', 'litecoin'];
-        const apiUrl = 'https://coingecko.p.rapidapi.com/coins/';
-        const to = Math.floor(Date.now() / 1000);
-        const from = to - 24 * 60 * 60; // 24 hours ago
-        const range = `/market_chart/range?from=${from}&vs_currency=inr&to=${to}`;
+        const apiUrl = 'https://api.coingecko.com/api/v3/coins/';
+        const range = `/market_chart?vs_currency=usd&days=365`;
         const options = {
-            method: 'GET',
             headers: {
-                'x-rapidapi-key': process.env.NEXT_PUBLIC_API_KEY!,
-                'x-rapidapi-host': 'coingecko.p.rapidapi.com'
-            }
+                'Content-Type': 'application/json',
+                'x-cg-demo-api-key': process.env.NEXT_PUBLIC_API_KEY_2!,
+            },
         };
 
         const fetchWithRetry = async (url: string, options: RequestInit, retries: number = 3, backoff: number = 3000): Promise<any> => {

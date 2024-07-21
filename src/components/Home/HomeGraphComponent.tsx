@@ -40,7 +40,7 @@ const HomeGraph = () => {
 
         for (let i = 0; i < btcPrices.length; i++) {
             transformed.push({
-                time: new Date(btcPrices[i][0]).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true }),
+                time: new Date(btcPrices[i][0]).toLocaleDateString(),
                 btc: btcPrices[i][1],
                 eth: ethPrices[i] ? ethPrices[i][1] : null,
                 ltc: ltcPrices[i] ? ltcPrices[i][1] : null
