@@ -1,3 +1,4 @@
+import { getCache, setCache } from "@/util/cache";
 import { create } from "zustand";
 
 interface CoinData {
@@ -50,17 +51,25 @@ const useHomeGraphStore = create<HomeGraphState>((set) => ({
             }
         };
 
+        const ttl = 5 * 60 * 1000; // 5 min TTL
+        const cacheKey = (coin: string) => `coinData_${coin}`;
+
         set({ loading: true });
 
         try {
             const data = await Promise.all(coins.map(async (coin) => {
+                const cachedData = getCache(cacheKey(coin));
+                if (cachedData) {
+                    return { [coin]: cachedData };
+                }
                 const result = await fetchWithRetry(`${apiUrl}${coin}${range}`, options);
+                setCache(cacheKey(coin), result, ttl);
                 return {
                     [coin]: {
                         prices: result.prices,
                         market_caps: result.market_caps,
-                        total_volumes: result.total_volumes
-                    }
+                        total_volumes: result.total_volumes,
+                    },
                 };
             }));
 
@@ -70,7 +79,7 @@ const useHomeGraphStore = create<HomeGraphState>((set) => ({
                     eth: data.find(d => d.ethereum)!.ethereum,
                     ltc: data.find(d => d.litecoin)!.litecoin,
                 },
-                loading: false
+                loading: false,
             });
         } catch (error) {
             console.error(error);

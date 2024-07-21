@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { ExploreData } from "@/util/market"; // Adjust the import path accordingly
+import { getCache, setCache } from "@/util/cache";
 
 export interface ExploreData {
     id: string;
@@ -34,9 +35,18 @@ const useExploreStore = create<ExploreState>((set) => ({
             }
         };
 
+        const ttl = 5 * 60 * 1000; // 1 hour TTL
+        const cacheKey = `exploreData_page_${page}`;
+
         set({ loading: true });
 
         try {
+            const cachedData = getCache(cacheKey);
+            if (cachedData) {
+                set({ data: cachedData, loading: false });
+                return;
+            }
+
             const response = await fetch(apiUrl, options);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -55,10 +65,9 @@ const useExploreStore = create<ExploreState>((set) => ({
                 price_change_30d: coin.price_change_percentage_30d_in_currency,
                 price_change_7d: coin.price_change_percentage_7d_in_currency
             }));
-            set({
-                data,
-                loading: false
-            });
+
+            setCache(cacheKey, data, ttl);
+            set({ data, loading: false });
         } catch (error) {
             console.error('Error fetching explore data:', error);
             onError("Failed to fetch Explore Data");

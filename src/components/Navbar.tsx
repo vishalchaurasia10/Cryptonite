@@ -4,6 +4,7 @@ import { FaBitcoin } from 'react-icons/fa';
 import { LuTrendingUp } from 'react-icons/lu';
 import { SiGoogleanalytics } from 'react-icons/si';
 import ThemeController from './ThemeController';
+import { IoListCircle } from 'react-icons/io5';
 
 const Navbar = () => {
 
@@ -13,9 +14,10 @@ const Navbar = () => {
             <Divider />
             <SideBarIcon icon={<LuTrendingUp size="30" />} text='Trending' toUrl='/trending' />
             <SideBarIcon icon={<SiGoogleanalytics size="20" />} text='Explore' toUrl='/explore' />
-            <SideBarIcon icon={<BsSearch size="20" />} text='Search coins 🔍' toUrl='' />
+            <SideBarIcon icon={<IoListCircle size="30" />} text='Watchlist' toUrl='/watchlist' />
             <Divider />
-            <SideBarIcon icon={<ThemeController />} text='Toggle Theme' toUrl='' />
+            <SideBarIcon icon={<BsSearch size="20" />} text='Search coins 🔍' toUrl='' />
+            {/* <SideBarIcon icon={<ThemeController />} text='Toggle Theme' toUrl='' /> */}
         </div>
     );
 };

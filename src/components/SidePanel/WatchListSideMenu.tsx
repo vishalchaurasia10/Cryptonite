@@ -31,7 +31,7 @@ const WatchListSideMenu = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.slice(0, 5).map((coin, index) => (
+                    {data.map((coin, index) => (
                         <tr key={index}
                         >
                             <Link href={`/coins/${coin.id}`}>

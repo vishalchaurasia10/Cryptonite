@@ -1,5 +1,5 @@
+import { getCache, setCache } from "@/util/cache";
 import { create } from "zustand";
-// import { companyHolding } from "@/util/market";
 
 export interface CoinHolding {
     name: string;
@@ -31,16 +31,30 @@ const useHoldingStore = create<HoldingState>((set) => ({
             },
         };
 
+        const ttl = 5 * 60 * 1000; // 1 hour TTL
+        const cacheKey = (coin: string) => `coinHolding_${coin}`;
+
         set({ loading: true });
 
         try {
-            const fetchPromises = coins.map((coin) =>
-                fetch(`${apiUrl}${coin}`, options).then((res) => res.json())
-            );
-            const [btcData, ethData] = await Promise.all(fetchPromises);
+            const fetchCoinData = async (coin: string) => {
+                const cachedData = getCache(cacheKey(coin));
+                if (cachedData) {
+                    return cachedData;
+                }
+                const response = await fetch(`${apiUrl}${coin}`, options);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                setCache(cacheKey(coin), data, ttl);
+                return data;
+            };
+
+            const [btcData, ethData] = await Promise.all(coins.map(fetchCoinData));
 
             const processCoinData = (coinData: any): CoinHolding[] => {
-                return coinData.map((item: any) => ({
+                return coinData.companies.map((item: any) => ({
                     name: item.name,
                     symbol: item.symbol,
                     country: item.country,
@@ -53,14 +67,15 @@ const useHoldingStore = create<HoldingState>((set) => ({
 
             set({
                 data: {
-                    btc: processCoinData(btcData.companies),
-                    eth: processCoinData(ethData.companies),
+                    btc: processCoinData(btcData),
+                    eth: processCoinData(ethData),
                 },
                 loading: false,
             });
         } catch (error) {
             onError('Failed to fetch Company Holding Data');
             console.error("Failed to fetch data:", error);
+            set({ loading: false });
         }
     },
 }));

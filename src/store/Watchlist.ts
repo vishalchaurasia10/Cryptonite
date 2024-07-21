@@ -1,6 +1,17 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { ExploreData } from "./Explore"; // Adjust the import path accordingly
+import { getCache, setCache } from "@/util/cache";
+
+export interface CoinHolding {
+    name: string;
+    symbol: string;
+    country: string;
+    total_holdings: number;
+    total_entry_value_usd: number;
+    total_current_value_usd: number;
+    percentage_of_total_supply: number;
+}
 
 interface WatchlistState {
     coinId: string[];
@@ -33,8 +44,18 @@ const WatchlistStore = (set: any, get: any): WatchlistState => ({
             }
         };
 
+        const ttl = 5 * 60 * 1000; // 1 hour TTL
+        const cacheKey = `watchlistData_${coins}`;
+
+        set({ loading: true });
+
         try {
-            set({ loading: true });
+            const cachedData = getCache(cacheKey);
+            if (cachedData) {
+                set({ data: cachedData, loading: false });
+                return;
+            }
+
             const response = await fetch(apiUrl, options);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -53,10 +74,13 @@ const WatchlistStore = (set: any, get: any): WatchlistState => ({
                 price_change_30d: coin.price_change_percentage_30d_in_currency,
                 price_change_7d: coin.price_change_percentage_7d_in_currency
             }));
+
+            setCache(cacheKey, data, ttl);
             set({ data, loading: false });
         } catch (error) {
             console.error('Error fetching coin data:', error);
             onError("Failed to fetch coin data.");
+            set({ loading: false });
         }
     },
     addCoin: (coinId: string, onSuccess, onError) => {
