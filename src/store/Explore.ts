@@ -17,11 +17,13 @@ export interface ExploreData {
 
 interface ExploreState {
     data: ExploreData[];
+    loading: boolean;
     fetchData: (page: number) => void;
 }
 
 const useExploreStore = create<ExploreState>((set) => ({
     data: [],
+    loading: false,
     fetchData: async (page: number = 1) => {
         const apiUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=20&page=${page}&sparkline=false&price_change_percentage=1h%2C24h%2C7d%2C30d%2C1y`;
         const options = {
@@ -31,6 +33,8 @@ const useExploreStore = create<ExploreState>((set) => ({
                 'x-cg-demo-api-key': process.env.NEXT_PUBLIC_API_KEY_2!
             }
         };
+
+        set({ loading: true });
 
         try {
             const response = await fetch(apiUrl, options);
@@ -51,7 +55,10 @@ const useExploreStore = create<ExploreState>((set) => ({
                 price_change_30d: coin.price_change_percentage_30d_in_currency,
                 price_change_7d: coin.price_change_percentage_7d_in_currency
             }));
-            set({ data });
+            set({
+                data,
+                loading: false
+            });
         } catch (error) {
             console.error('Error fetching trending data:', error);
         }

@@ -13,11 +13,13 @@ export interface TrendingData {
 
 interface TrendingState {
     data: TrendingData[];
+    loading: boolean;
     fetchData: () => void;
 }
 
 const useTrendingStore = create<TrendingState>((set) => ({
     data: [],
+    loading: false,
     fetchData: async () => {
         const apiUrl = 'https://api.coingecko.com/api/v3/search/trending';
         const options = {
@@ -27,6 +29,8 @@ const useTrendingStore = create<TrendingState>((set) => ({
                 'x-cg-demo-api-key': process.env.NEXT_PUBLIC_API_KEY_2!
             }
         };
+
+        set({ loading: true });
 
         try {
             const response = await fetch(apiUrl, options);
@@ -43,7 +47,10 @@ const useTrendingStore = create<TrendingState>((set) => ({
                 change: coin.item.data.price_change_percentage_24h.usd,
                 market_cap: coin.item.data.market_cap
             }));
-            set({ data });
+            set({
+                data,
+                loading: false
+            });
         } catch (error) {
             console.error('Error fetching trending data:', error);
         }

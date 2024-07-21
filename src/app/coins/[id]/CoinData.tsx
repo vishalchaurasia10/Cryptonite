@@ -27,6 +27,7 @@ export interface CoinData {
 
 const CoinData = ({ id }: { id: string }) => {
     const [coin, setCoin] = useState<CoinData | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,6 +41,7 @@ const CoinData = ({ id }: { id: string }) => {
             };
 
             try {
+                setLoading(true);
                 const response = await fetch(apiUrl, options);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -47,6 +49,7 @@ const CoinData = ({ id }: { id: string }) => {
                 const resData = await response.json();
                 console.log(resData)
                 setCoin(resData);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching coin data:', error);
             }
@@ -56,9 +59,9 @@ const CoinData = ({ id }: { id: string }) => {
 
     return (
         <div className="w-full p-3 lg:flex lg:flex-col justify-center items-center">
-            <CoinHeader coin={coin} />
+            <CoinHeader coin={coin} loading={loading} />
             <CoinGraph id={id} />
-            <CoinInfo coin={coin} />
+            <CoinInfo coin={coin} loading={loading} />
         </div>
     )
 }
