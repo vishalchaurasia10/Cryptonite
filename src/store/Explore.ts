@@ -1,5 +1,5 @@
+// import { ExploreData } from "../../temp/market";
 import { create } from "zustand";
-import { ExploreData } from "../../temp/market"; // Adjust the import path accordingly
 import { getCache, setCache } from "@/util/cache";
 
 export interface ExploreData {
