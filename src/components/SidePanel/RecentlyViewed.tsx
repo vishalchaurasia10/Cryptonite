@@ -1,7 +1,6 @@
 'use client'
 import Image from 'next/image';
 import React from 'react'
-import { formatYAxis } from '@/app/home/HomeGraphComponent';
 import Link from 'next/link';
 import useSearchStore from '@/store/Search';
 

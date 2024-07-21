@@ -55,7 +55,7 @@ const SearchModal = () => {
                                                 <Link
                                                     onClick={() => {
                                                         const modal = document.getElementById('my_modal_2');
-                                                        (modal as HTMLDialogElement)?.close()
+                                                        (modal as HTMLDialogElement)?.close
                                                     }}
                                                     href={`/coins/${suggestion.id}`} passHref>
                                                     <div key={index} className='flex items-center space-x-3'>
