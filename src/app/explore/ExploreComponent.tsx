@@ -8,6 +8,7 @@ import { formatYAxis } from '../home/HomeGraphComponent';
 import useWatchlistStore from '@/store/Watchlist';
 import TableLoading from '@/components/loading/TableLoading';
 import { motion, AnimatePresence } from 'framer-motion';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const ExploreComponent = () => {
@@ -18,12 +19,16 @@ const ExploreComponent = () => {
 
     useEffect(() => {
         if (data.length === 0) {
-            fetchData(1);
+            fetchData(1, (message: string) => {
+                toast.error(message);
+            });
         }
     }, []);
 
     useEffect(() => {
-        fetchData(currentPage);
+        fetchData(currentPage, (message: string) => {
+            toast.error(message);
+        });
     }, [currentPage]);
 
     const getPriceChangeDirection = (value: number) => {
@@ -49,6 +54,7 @@ const ExploreComponent = () => {
 
     return (
         <div className='font-poppins w-full border border-gray-300 min-h-screen rounded-lg py-5 px-3 lg:p-6 shadow-2xl shadow-gray-400'>
+            <Toaster />
             <TableLoading loading={loading} />
             <AnimatePresence>
                 {!loading &&

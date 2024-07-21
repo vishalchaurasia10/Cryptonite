@@ -14,13 +14,13 @@ export interface CoinHolding {
 interface HoldingState {
     data: { btc: CoinHolding[], eth: CoinHolding[] };
     loading: boolean;
-    fetchData: () => void;
+    fetchData: (onError: (message: string) => void) => void;
 }
 
 const useHoldingStore = create<HoldingState>((set) => ({
     data: { btc: [], eth: [] },
     loading: false,
-    fetchData: async () => {
+    fetchData: async (onError) => {
         const coins = ['bitcoin', 'ethereum'];
         const apiUrl = 'https://api.coingecko.com/api/v3/companies/public_treasury/';
         const options = {
@@ -59,6 +59,7 @@ const useHoldingStore = create<HoldingState>((set) => ({
                 loading: false,
             });
         } catch (error) {
+            onError('Failed to fetch Company Holding Data');
             console.error("Failed to fetch data:", error);
         }
     },

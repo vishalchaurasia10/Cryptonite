@@ -9,7 +9,7 @@ interface CoinData {
 interface HomeGraphState {
     data: { btc: CoinData, eth: CoinData, ltc: CoinData };
     loading: boolean;
-    fetchData: () => void;
+    fetchData: (onError: (message: string) => void) => void;
 }
 
 const useHomeGraphStore = create<HomeGraphState>((set) => ({
@@ -19,7 +19,7 @@ const useHomeGraphStore = create<HomeGraphState>((set) => ({
         ltc: { prices: [], market_caps: [], total_volumes: [] },
     },
     loading: false,
-    fetchData: async () => {
+    fetchData: async (onError) => {
         const coins = ['bitcoin', 'ethereum', 'litecoin'];
         const apiUrl = 'https://api.coingecko.com/api/v3/coins/';
         const range = `/market_chart?vs_currency=usd&days=365`;
@@ -74,6 +74,7 @@ const useHomeGraphStore = create<HomeGraphState>((set) => ({
             });
         } catch (error) {
             console.error(error);
+            onError("Failed to fetch Graph data.Try again later.");
             set({ loading: false });
         }
     },

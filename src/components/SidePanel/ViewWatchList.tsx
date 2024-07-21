@@ -3,6 +3,7 @@ import useWatchlistStore from "@/store/Watchlist";
 import { useEffect } from "react";
 import { FaBitcoin } from "react-icons/fa";
 import WatchListSideMenu from "./WatchListSideMenu";
+import toast, { Toaster } from "react-hot-toast";
 
 
 const ViewWatchList = () => {
@@ -13,20 +14,22 @@ const ViewWatchList = () => {
     }, [coinId]);
 
     useEffect(() => {
-        loadCoinsFromLocalStorage();
+        loadCoinsFromLocalStorage((message: string) => {
+            toast.error(message);
+        });
     }, []);
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         if (activeCoin) {
-            addCoin(activeCoin);
+            addCoin(activeCoin, (message: string) => toast.success(message), (message: string) => toast.error(message));
             setActiveCoin(null);
         }
     }
 
     return (
-        <div
-            className='side-panel h-1/2 overflow-y-auto border border-gray-300 rounded-lg p-4 shadow-2xl shadow-gray-400'>
+        <div className='side-panel h-1/2 overflow-y-auto border border-gray-300 rounded-lg p-4 shadow-2xl shadow-gray-400'>
+            <Toaster />
             {
                 activeCoin ?
                     <div

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-// import { ExploreData } from "@/util/market";
+import { ExploreData } from "@/util/market"; // Adjust the import path accordingly
 
 export interface ExploreData {
     id: string;
@@ -18,13 +18,13 @@ export interface ExploreData {
 interface ExploreState {
     data: ExploreData[];
     loading: boolean;
-    fetchData: (page: number) => void;
+    fetchData: (page: number, onError: (message: string) => void) => void;
 }
 
 const useExploreStore = create<ExploreState>((set) => ({
     data: [],
     loading: false,
-    fetchData: async (page: number = 1) => {
+    fetchData: async (page: number = 1, onError) => {
         const apiUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=20&page=${page}&sparkline=false&price_change_percentage=1h%2C24h%2C7d%2C30d%2C1y`;
         const options = {
             method: 'GET',
@@ -60,7 +60,9 @@ const useExploreStore = create<ExploreState>((set) => ({
                 loading: false
             });
         } catch (error) {
-            console.error('Error fetching trending data:', error);
+            console.error('Error fetching explore data:', error);
+            onError("Failed to fetch Explore Data");
+            set({ loading: false });
         }
     },
 }));

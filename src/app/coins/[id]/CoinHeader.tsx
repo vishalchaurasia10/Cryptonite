@@ -41,8 +41,8 @@ const CoinHeader = ({ coin, loading }: { coin: CoinData | null, loading: boolean
                                     </span>
                                 </p>
                             </div>
-                            <div onClick={() => coin?.id ? addCoin(coin?.id) : ''} title='Add to Watchlist' className="add cursor-pointer">
-                                <AiOutlinePlusCircle className='text-green-500 text-3xl' />
+                            <div title='Add to Watchlist' className="add cursor-pointer">
+                                <AiOutlinePlusCircle onClick={() => coin?.id ? addCoin(coin?.id) : ''} className='text-green-500 text-3xl cursor-pointer' />
                             </div>
                         </div>
                     </motion.div>

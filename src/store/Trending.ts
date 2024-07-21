@@ -14,13 +14,13 @@ export interface TrendingData {
 interface TrendingState {
     data: TrendingData[];
     loading: boolean;
-    fetchData: () => void;
+    fetchData: (onError: (message: string) => void) => void;
 }
 
 const useTrendingStore = create<TrendingState>((set) => ({
     data: [],
     loading: false,
-    fetchData: async () => {
+    fetchData: async (onError) => {
         const apiUrl = 'https://api.coingecko.com/api/v3/search/trending';
         const options = {
             method: 'GET',
@@ -52,6 +52,7 @@ const useTrendingStore = create<TrendingState>((set) => ({
                 loading: false
             });
         } catch (error) {
+            onError('Error fetching trending data');
             console.error('Error fetching trending data:', error);
         }
     }

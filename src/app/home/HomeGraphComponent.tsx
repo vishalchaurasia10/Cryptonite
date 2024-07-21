@@ -1,6 +1,7 @@
 'use client'
 import useHomeGraphStore from '@/store/HomeGraph'
 import React, { useEffect } from 'react'
+import toast, { Toaster } from 'react-hot-toast';
 import {
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts'
@@ -23,14 +24,15 @@ export const formatYAxis = (tick: number) => {
 };
 
 const HomeGraphComponent = () => {
-
-    const { data, fetchData, loading } = useHomeGraphStore((state) => state)
+    const { data, fetchData, loading } = useHomeGraphStore((state) => state);
 
     useEffect(() => {
         if (data.btc.prices.length === 0) {
-            fetchData()
+            fetchData((message: string) => {
+                toast.error(message);
+            });
         }
-    }, [])
+    }, []);
 
     // Transform the data into a suitable format for Recharts
     const transformData = () => {
@@ -54,6 +56,7 @@ const HomeGraphComponent = () => {
 
     return (
         <div className='w-full flex justify-center items-center py-5 pt-8 lg:pt-10 lg:py-10 pr-5 lg:pr-10 border border-gray-300 rounded-lg shadow-2xl shadow-gray-400 relative'>
+            <Toaster />
             <GraphLoading loading={loading} />
             <ResponsiveContainer className={`${loading ? 'opacity-0' : 'opacity-100'} transition-all duration-300 w-full`} width="100%" height={400}>
                 <AreaChart
@@ -95,4 +98,4 @@ const HomeGraphComponent = () => {
     )
 }
 
-export default HomeGraphComponent
+export default HomeGraphComponent;

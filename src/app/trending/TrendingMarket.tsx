@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs'
 import { FaChevronRight } from 'react-icons/fa'
 
@@ -14,12 +15,15 @@ const TrendingMarket = () => {
 
     useEffect(() => {
         if (data.length === 0) {
-            fetchData()
+            fetchData((message: string) => {
+                toast.error(message);
+            })
         }
     }, [])
 
     return (
         <div className='font-poppins w-full border border-gray-300 rounded-lg py-5 px-3 lg:p-6 min-h-screen shadow-2xl shadow-gray-400'>
+            <Toaster />
             <TableLoading loading={loading} />
             <AnimatePresence>
                 {!loading &&
