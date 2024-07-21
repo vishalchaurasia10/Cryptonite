@@ -2,11 +2,12 @@ import React from 'react'
 import { CoinData } from './CoinData'
 import Image from 'next/image'
 import { checkForNull } from './CoinInfo'
-import { BsArrowDown, BsArrowUp, BsFilePlus } from 'react-icons/bs'
+import { BsArrowDown, BsArrowUp } from 'react-icons/bs'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
 import useWatchlistStore from '@/store/Watchlist'
 import { AnimatePresence, motion } from 'framer-motion'
 import HeaderLoading from '@/components/loading/HeaderLoading'
+import toast from 'react-hot-toast'
 
 const CoinHeader = ({ coin, loading }: { coin: CoinData | null, loading: boolean }) => {
 
@@ -41,8 +42,10 @@ const CoinHeader = ({ coin, loading }: { coin: CoinData | null, loading: boolean
                                     </span>
                                 </p>
                             </div>
-                            <div title='Add to Watchlist' className="add cursor-pointer">
-                                <AiOutlinePlusCircle onClick={() => coin?.id ? addCoin(coin?.id) : ''} className='text-green-500 text-3xl cursor-pointer' />
+                            <div
+                                onClick={() => coin?.id ? addCoin(coin?.id, (message: string) => toast.success(message), (message: string) => toast.error(message)) : ''}
+                                title='Add to Watchlist' className="add cursor-pointer">
+                                <AiOutlinePlusCircle className='text-green-500 text-3xl cursor-pointer' />
                             </div>
                         </div>
                     </motion.div>

@@ -14,7 +14,7 @@ const WatchListSideMenu = () => {
         <div className='overflow-x-auto font-poppins'>
             <div className='flex justify-between items-center px-2 pb-5'>
                 <p className=' font-bold text-lg lg:text-2xl'>Watchlist</p>
-                <Link href='/explore'>
+                <Link href='/watchlist'>
                     <p className='flex group hover:bg-slate-200 p-2 lg:px-4 rounded-full items-center lg:space-x-1 text-slate-500 font-poppins transition-all duration-300'>
                         <span className='font-bold whitespace-nowrap'>View All</span>
                         <FaChevronRight className='group-hover:translate-x-0.5 transition-all duration-300' />
@@ -31,7 +31,7 @@ const WatchListSideMenu = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((coin, index) => (
+                    {data.slice(0, 5).map((coin, index) => (
                         <tr key={index}
                         >
                             <Link href={`/coins/${coin.id}`}>

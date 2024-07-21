@@ -57,9 +57,9 @@ const CoinGraph = ({ id }: { id: string }) => {
     return (
         <>
             <Toaster />
-            <div className='w-full flex justify-center items-center py-5 pt-8 lg:pt-10 lg:py-10 pr-5 lg:pr-10 border border-gray-300 rounded-lg shadow-2xl shadow-gray-400 mb-10 relative'>
+            <div className='w-full flex justify-center items-center py-5 pt-8 lg:pt-10 lg:py-10 pr-5 lg:pr-10 border border-gray-300 rounded-lg shadow-2xl shadow-gray-400 mb-10 relative min-h-[450px]'>
                 <GraphLoading loading={loading} />
-                <ResponsiveContainer className='w-full' width="100%" height={400}>
+                {!loading && <ResponsiveContainer className='w-full' width="100%" height={400}>
                     <AreaChart
                         data={data} // Use transformed data here
                         margin={{
@@ -84,7 +84,7 @@ const CoinGraph = ({ id }: { id: string }) => {
                         <Legend iconSize={8} iconType='circle' verticalAlign='top' align='left' />
                         <Area type="monotone" dataKey="price" stroke="#ea64b7" fillOpacity={1} fill="url(#colorBtc)" />
                     </AreaChart>
-                </ResponsiveContainer>
+                </ResponsiveContainer>}
             </div>
         </>
     )

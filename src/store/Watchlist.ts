@@ -7,6 +7,7 @@ interface WatchlistState {
     activeCoin: string | null;
     setActiveCoin: (coinId: string | null) => void;
     data: ExploreData[];
+    loading: boolean;
     fetchData: (onError: (message: string) => void) => Promise<void>;
     addCoin: (coinId: string, onSuccess: (message: string) => void, onError: (message: string) => void) => void;
     removeCoin: (coinId: string, onSuccess: (message: string) => void) => void;
@@ -16,6 +17,7 @@ interface WatchlistState {
 const WatchlistStore = (set: any, get: any): WatchlistState => ({
     coinId: [],
     data: [],
+    loading: false,
     activeCoin: null,
     setActiveCoin: (coinId: string | null) => set({ activeCoin: coinId }),
     fetchData: async (onError) => {
@@ -32,6 +34,7 @@ const WatchlistStore = (set: any, get: any): WatchlistState => ({
         };
 
         try {
+            set({ loading: true });
             const response = await fetch(apiUrl, options);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -50,7 +53,7 @@ const WatchlistStore = (set: any, get: any): WatchlistState => ({
                 price_change_30d: coin.price_change_percentage_30d_in_currency,
                 price_change_7d: coin.price_change_percentage_7d_in_currency
             }));
-            set({ data });
+            set({ data, loading: false });
         } catch (error) {
             console.error('Error fetching coin data:', error);
             onError("Failed to fetch coin data.");
