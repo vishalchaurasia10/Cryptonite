@@ -1,5 +1,5 @@
 'use client'
-import { formatYAxis } from '@/components/Home/HomeGraphComponent';
+import { formatYAxis } from '@/app/home/HomeGraphComponent';
 import GraphLoading from '@/components/loading/GraphLoading';
 import React, { useEffect, useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'

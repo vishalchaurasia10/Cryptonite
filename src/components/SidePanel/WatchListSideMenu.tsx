@@ -1,7 +1,7 @@
 import useWatchlistStore from '@/store/Watchlist'
 import Image from 'next/image';
 import React from 'react'
-import { formatYAxis } from '../Home/HomeGraphComponent';
+import { formatYAxis } from '@/app/home/HomeGraphComponent';
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
 import { FaChevronRight } from 'react-icons/fa';
 import Link from 'next/link';

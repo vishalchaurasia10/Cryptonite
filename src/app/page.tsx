@@ -1,5 +1,5 @@
-import HoldingComponent from "@/components/Home/HoldingComponent";
-import HomeGraphComponent from "@/components/Home/HomeGraphComponent";
+import HoldingComponent from "./home/HoldingComponent";
+import HomeGraphComponent from "./home/HomeGraphComponent";
 
 export default function Home() {
   return (

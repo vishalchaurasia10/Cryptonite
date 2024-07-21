@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
-import { formatYAxis } from '@/components/Home/HomeGraphComponent';
+import { formatYAxis } from '../home/HomeGraphComponent';
 import useWatchlistStore from '@/store/Watchlist';
 import TableLoading from '@/components/loading/TableLoading';
 import { motion, AnimatePresence } from 'framer-motion';

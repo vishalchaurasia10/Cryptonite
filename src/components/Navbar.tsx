@@ -9,7 +9,7 @@ const Navbar = () => {
 
     return (
         <div className="fixed z-50 bottom-0 lg:top-0 lg:left-0 w-full lg:h-screen lg:w-16 flex flex-row lg:flex-col bg-[rgba(255,255,255,0.2)] shadow-lg backdrop-blur-2xl">
-            <SideBarIcon icon={<FaBitcoin size="28" />} text='Home' toUrl='/' />
+            <SideBarIcon icon={<FaBitcoin size="28" />} text='Cryptonite' toUrl='/' />
             <Divider />
             <SideBarIcon icon={<LuTrendingUp size="30" />} text='Trending' toUrl='/trending' />
             <SideBarIcon icon={<SiGoogleanalytics size="20" />} text='Explore' toUrl='/explore' />

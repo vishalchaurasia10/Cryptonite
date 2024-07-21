@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import {
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts'
-import GraphLoading from '../loading/GraphLoading';
+import GraphLoading from '@/components/loading/GraphLoading'
 
 export const formatYAxis = (tick: number) => {
     if (tick >= 1_000_000_000_000) {
@@ -22,7 +22,7 @@ export const formatYAxis = (tick: number) => {
     return tick;
 };
 
-const HomeGraph = () => {
+const HomeGraphComponent = () => {
 
     const { data, fetchData, loading } = useHomeGraphStore((state) => state)
 
@@ -95,4 +95,4 @@ const HomeGraph = () => {
     )
 }
 
-export default HomeGraph
+export default HomeGraphComponent

@@ -1,7 +1,7 @@
 import { CoinHolding } from '@/store/Holding'
 import React, { useEffect, useState } from 'react'
-import { formatYAxis } from './HomeGraphComponent'
-import TableLoading from '../loading/TableLoading'
+import { formatYAxis } from '@/app/home/HomeGraphComponent'
+import TableLoading from '../../components/loading/TableLoading'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const CoinHoldingComponent = ({ coin, data, setSelectedCoin, selectedCoin, loading }: {

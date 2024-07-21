@@ -1,4 +1,4 @@
-import { formatYAxis } from '@/components/Home/HomeGraphComponent';
+import { formatYAxis } from '../home/HomeGraphComponent';
 import { ExploreData } from '@/store/Explore';
 import Image from 'next/image';
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
