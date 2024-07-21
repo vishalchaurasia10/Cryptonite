@@ -26,7 +26,7 @@ const ViewWatchList = () => {
 
     return (
         <div
-            className='side-panel h-1/2 border border-gray-300 rounded-lg p-4 shadow-2xl shadow-gray-400'>
+            className='side-panel h-1/2 overflow-y-auto border border-gray-300 rounded-lg p-4 shadow-2xl shadow-gray-400'>
             {
                 activeCoin ?
                     <div

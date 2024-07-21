@@ -22,27 +22,27 @@ const CoinGraph = ({ id }: { id: string }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            // const apiUrl = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=365`;
-            // const options = {
-            //     method: 'GET',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'x-cg-demo-api-key': process.env.NEXT_PUBLIC_API_KEY_2!,
-            //     },
-            // };
-            // try {
-            //     const response = await fetch(apiUrl, options);
-            //     if (!response.ok) {
-            //         toast.error(`HTTP error! status: ${response.status}`);
-            //         throw new Error(`HTTP error! status: ${response.status}`);
-            //     }
-            //     const resData = await response.json();
-            //     const transformedData = transformData(resData.prices);
-            //     setData(transformedData);
-            // } catch (error) {
-            //     toast.error('Error fetching graph data');
-            //     console.error('Error fetching graph data:', error);
-            // }
+            const apiUrl = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=365`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-cg-demo-api-key': process.env.NEXT_PUBLIC_API_KEY_2!,
+                },
+            };
+            try {
+                const response = await fetch(apiUrl, options);
+                if (!response.ok) {
+                    toast.error(`HTTP error! status: ${response.status}`);
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const resData = await response.json();
+                const transformedData = transformData(resData.prices);
+                setData(transformedData);
+            } catch (error) {
+                toast.error('Error fetching graph data');
+                console.error('Error fetching graph data:', error);
+            }
         };
         fetchData();
     }, [id]);
