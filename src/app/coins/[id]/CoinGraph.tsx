@@ -22,27 +22,27 @@ const CoinGraph = ({ id }: { id: string }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const apiUrl = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=365`;
-            const options = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-cg-demo-api-key': process.env.NEXT_PUBLIC_API_KEY_2!,
-                },
-            };
-            try {
-                const response = await fetch(apiUrl, options);
-                if (!response.ok) {
-                    toast.error(`HTTP error! status: ${response.status}`);
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const resData = await response.json();
-                const transformedData = transformData(resData.prices);
-                setData(transformedData);
-            } catch (error) {
-                toast.error('Error fetching graph data');
-                console.error('Error fetching graph data:', error);
-            }
+            // const apiUrl = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=365`;
+            // const options = {
+            //     method: 'GET',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'x-cg-demo-api-key': process.env.NEXT_PUBLIC_API_KEY_2!,
+            //     },
+            // };
+            // try {
+            //     const response = await fetch(apiUrl, options);
+            //     if (!response.ok) {
+            //         toast.error(`HTTP error! status: ${response.status}`);
+            //         throw new Error(`HTTP error! status: ${response.status}`);
+            //     }
+            //     const resData = await response.json();
+            //     const transformedData = transformData(resData.prices);
+            //     setData(transformedData);
+            // } catch (error) {
+            //     toast.error('Error fetching graph data');
+            //     console.error('Error fetching graph data:', error);
+            // }
         };
         fetchData();
     }, [id]);
@@ -57,7 +57,7 @@ const CoinGraph = ({ id }: { id: string }) => {
     return (
         <>
             <Toaster />
-            <div className='w-full flex justify-center items-center py-5 pt-8 lg:pt-10 lg:py-10 pr-5 lg:pr-10 border border-gray-300 rounded-lg shadow-2xl shadow-gray-400'>
+            <div className='w-full flex justify-center items-center py-5 pt-8 lg:pt-10 lg:py-10 pr-5 lg:pr-10 border border-gray-300 rounded-lg shadow-2xl shadow-gray-400 mb-10'>
                 <ResponsiveContainer className='w-full' width="100%" height={400}>
                     <AreaChart
                         data={data} // Use transformed data here
