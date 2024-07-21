@@ -23,7 +23,7 @@ const CoinInfo = ({ coin }: { coin: CoinData | null }) => {
     }, [coin]);
 
     return (
-        <div className='font-poppins p-2 lg:p-4 space-y-4'>
+        <div className='font-poppins p-2 space-y-4 w-full border border-gray-300 rounded-lg py-5 px-3 lg:p-6 shadow-2xl shadow-gray-400'>
             {coin && (
                 <>
                     <div className='performances'>

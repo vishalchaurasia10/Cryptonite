@@ -3,6 +3,7 @@ import { BsSearch } from 'react-icons/bs';
 import { FaBitcoin } from 'react-icons/fa';
 import { LuTrendingUp } from 'react-icons/lu';
 import { SiGoogleanalytics } from 'react-icons/si';
+import ThemeController from './ThemeController';
 
 const Navbar = () => {
 
@@ -14,6 +15,7 @@ const Navbar = () => {
             <SideBarIcon icon={<SiGoogleanalytics size="20" />} text='Explore' toUrl='/explore' />
             <SideBarIcon icon={<BsSearch size="20" />} text='Search coins 🔍' toUrl='' />
             <Divider />
+            <SideBarIcon icon={<ThemeController />} text='Toggle Theme' toUrl='' />
         </div>
     );
 };
