@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link';
 import { BsSearch } from 'react-icons/bs';
 import { FaBitcoin } from 'react-icons/fa';
@@ -5,6 +6,7 @@ import { LuTrendingUp } from 'react-icons/lu';
 import { SiGoogleanalytics } from 'react-icons/si';
 import ThemeController from './ThemeController';
 import { IoListCircle } from 'react-icons/io5';
+import SearchModal from './SearchModal';
 
 const Navbar = () => {
 
@@ -16,8 +18,15 @@ const Navbar = () => {
             <SideBarIcon icon={<SiGoogleanalytics size="20" />} text='Explore' toUrl='/explore' />
             <SideBarIcon icon={<IoListCircle size="30" />} text='Watchlist' toUrl='/watchlist' />
             <Divider />
-            <SideBarIcon icon={<BsSearch size="20" />} text='Search coins 🔍' toUrl='' />
+            <div
+                onClick={() => {
+                    const modal = document.getElementById('my_modal_2');
+                    (modal as HTMLDialogElement)?.showModal();
+                }}>
+                <SideBarIcon icon={<BsSearch size="20" />} text='Search coins 🔍' toUrl='' />
+            </div>
             {/* <SideBarIcon icon={<ThemeController />} text='Toggle Theme' toUrl='' /> */}
+            <SearchModal />
         </div>
     );
 };

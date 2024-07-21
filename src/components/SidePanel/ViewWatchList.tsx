@@ -10,10 +10,6 @@ const ViewWatchList = () => {
     const { activeCoin, setActiveCoin, addCoin, coinId, loadCoinsFromLocalStorage } = useWatchlistStore((state) => state);
 
     useEffect(() => {
-        console.log("list of coins", coinId);
-    }, [coinId]);
-
-    useEffect(() => {
         loadCoinsFromLocalStorage((message: string) => {
             toast.error(message);
         });

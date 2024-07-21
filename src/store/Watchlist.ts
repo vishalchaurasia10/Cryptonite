@@ -114,7 +114,6 @@ const WatchlistStore = (set: any, get: any): WatchlistState => ({
         if (storedCoins) {
             try {
                 const parsedCoins = JSON.parse(storedCoins).state.coinId;
-                console.log('parsedCoins', parsedCoins);
                 set({ coinId: parsedCoins });
                 get().fetchData(onError);
             } catch (error) {
