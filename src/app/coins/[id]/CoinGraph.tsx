@@ -1,15 +1,11 @@
 'use client'
 import { formatYAxis } from '@/components/Home/HomeGraphComponent';
+import GraphLoading from '@/components/loading/GraphLoading';
 import React, { useEffect, useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import {
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts'
-
-
-interface RawCoinData {
-    prices: [number, number][];
-}
 
 interface CoinGraphData {
     time: string;
@@ -19,6 +15,7 @@ interface CoinGraphData {
 const CoinGraph = ({ id }: { id: string }) => {
 
     const [data, setData] = useState<CoinGraphData[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -31,6 +28,7 @@ const CoinGraph = ({ id }: { id: string }) => {
                 },
             };
             try {
+                setLoading(true);
                 const response = await fetch(apiUrl, options);
                 if (!response.ok) {
                     toast.error(`HTTP error! status: ${response.status}`);
@@ -42,6 +40,8 @@ const CoinGraph = ({ id }: { id: string }) => {
             } catch (error) {
                 toast.error('Error fetching graph data');
                 console.error('Error fetching graph data:', error);
+            } finally {
+                setLoading(false);
             }
         };
         fetchData();
@@ -57,7 +57,8 @@ const CoinGraph = ({ id }: { id: string }) => {
     return (
         <>
             <Toaster />
-            <div className='w-full flex justify-center items-center py-5 pt-8 lg:pt-10 lg:py-10 pr-5 lg:pr-10 border border-gray-300 rounded-lg shadow-2xl shadow-gray-400 mb-10'>
+            <div className='w-full flex justify-center items-center py-5 pt-8 lg:pt-10 lg:py-10 pr-5 lg:pr-10 border border-gray-300 rounded-lg shadow-2xl shadow-gray-400 mb-10 relative'>
+                <GraphLoading loading={loading} />
                 <ResponsiveContainer className='w-full' width="100%" height={400}>
                     <AreaChart
                         data={data} // Use transformed data here

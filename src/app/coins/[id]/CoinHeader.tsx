@@ -11,7 +11,7 @@ const CoinHeader = ({ coin }: { coin: CoinData | null }) => {
     const { addCoin } = useWatchlistStore((state) => state)
 
     return (
-        <div className='header font-poppins space-y-2 mb-2'>
+        <div className='header font-poppins space-y-2 w-full mb-5'>
             <Image className='h-8 w-8 border rounded-lg p-1' src={coin?.image?.thumb ?? ''} alt='coinImage' width='100' height='100' />
             <h1 className='text-gray-500 '>{coin?.name}</h1>
             <div className='flex items-center justify-between'>

@@ -1,5 +1,4 @@
 import { create } from "zustand";
-// import { jsonData } from "@/util/market";
 
 interface CoinData {
     prices: number[][];
@@ -9,6 +8,7 @@ interface CoinData {
 
 interface HomeGraphState {
     data: { btc: CoinData, eth: CoinData, ltc: CoinData };
+    loading: boolean;
     fetchData: () => void;
 }
 
@@ -18,6 +18,7 @@ const useHomeGraphStore = create<HomeGraphState>((set) => ({
         eth: { prices: [], market_caps: [], total_volumes: [] },
         ltc: { prices: [], market_caps: [], total_volumes: [] },
     },
+    loading: false,
     fetchData: async () => {
         const coins = ['bitcoin', 'ethereum', 'litecoin'];
         const apiUrl = 'https://api.coingecko.com/api/v3/coins/';
@@ -33,9 +34,7 @@ const useHomeGraphStore = create<HomeGraphState>((set) => ({
             try {
                 const response = await fetch(url, options);
                 if (response.status === 429 && retries > 0) {
-                    // Wait for the backoff period before retrying
                     await new Promise(res => setTimeout(res, backoff));
-                    // Retry with exponential backoff
                     return fetchWithRetry(url, options, retries - 1, backoff * 2);
                 }
                 if (!response.ok) {
@@ -50,6 +49,8 @@ const useHomeGraphStore = create<HomeGraphState>((set) => ({
                 return fetchWithRetry(url, options, retries - 1, backoff * 2);
             }
         };
+
+        set({ loading: true });
 
         try {
             const data = await Promise.all(coins.map(async (coin) => {
@@ -68,10 +69,12 @@ const useHomeGraphStore = create<HomeGraphState>((set) => ({
                     btc: data.find(d => d.bitcoin)!.bitcoin,
                     eth: data.find(d => d.ethereum)!.ethereum,
                     ltc: data.find(d => d.litecoin)!.litecoin,
-                }
+                },
+                loading: false
             });
         } catch (error) {
             console.error(error);
+            set({ loading: false });
         }
     },
 }));

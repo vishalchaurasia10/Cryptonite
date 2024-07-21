@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import {
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts'
+import GraphLoading from '../loading/GraphLoading';
 
 export const formatYAxis = (tick: number) => {
     if (tick >= 1_000_000_000_000) {
@@ -23,7 +24,7 @@ export const formatYAxis = (tick: number) => {
 
 const HomeGraph = () => {
 
-    const { data, fetchData } = useHomeGraphStore((state) => state)
+    const { data, fetchData, loading } = useHomeGraphStore((state) => state)
 
     useEffect(() => {
         if (data.btc.prices.length === 0) {
@@ -52,8 +53,9 @@ const HomeGraph = () => {
     const chartData = transformData()
 
     return (
-        <div className='w-full flex justify-center items-center py-5 pt-8 lg:pt-10 lg:py-10 pr-5 lg:pr-10 border border-gray-300 rounded-lg shadow-2xl shadow-gray-400'>
-            <ResponsiveContainer className='w-full' width="100%" height={400}>
+        <div className='w-full flex justify-center items-center py-5 pt-8 lg:pt-10 lg:py-10 pr-5 lg:pr-10 border border-gray-300 rounded-lg shadow-2xl shadow-gray-400 relative'>
+            <GraphLoading loading={loading} />
+            <ResponsiveContainer className={`${loading ? 'opacity-0' : 'opacity-100'} transition-all duration-300 w-full`} width="100%" height={400}>
                 <AreaChart
                     data={chartData}
                     margin={{

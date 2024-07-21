@@ -55,7 +55,7 @@ const CoinData = ({ id }: { id: string }) => {
     }, [id]);
 
     return (
-        <div>
+        <div className="w-full p-3 lg:flex lg:flex-col justify-center items-center">
             <CoinHeader coin={coin} />
             <CoinGraph id={id} />
             <CoinInfo coin={coin} />
