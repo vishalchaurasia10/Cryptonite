@@ -1,15 +1,17 @@
 import React from 'react'
 
-const ThemeController = () => {
+const ThemeController = ({ toggleTheme, theme }: { toggleTheme: () => void, theme: string }) => {
     return (
-        <div>
+        <div
+            className="p-4 m-4 cursor-pointer flex items-center justify-center">
             <label className="swap swap-rotate">
                 {/* this hidden checkbox controls the state */}
-                <input type="checkbox" className="theme-controller" value="dark" />
+                <input type="checkbox" checked={theme === 'dark'} readOnly />
 
                 {/* sun icon */}
                 <svg
-                    className="swap-off h-10 w-10 fill-current"
+                    onClick={toggleTheme}
+                    className="swap-off h-8 w-8 fill-current"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24">
                     <path
@@ -18,7 +20,8 @@ const ThemeController = () => {
 
                 {/* moon icon */}
                 <svg
-                    className="swap-on h-10 w-10 fill-current"
+                    onClick={toggleTheme}
+                    className="swap-on h-8 w-8 fill-current"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24">
                     <path

@@ -7,8 +7,25 @@ import { SiGoogleanalytics } from 'react-icons/si';
 import ThemeController from './ThemeController';
 import { IoListCircle } from 'react-icons/io5';
 import SearchModal from './SearchModal';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
+    const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('theme') as 'light' | 'dark';
+        if (savedTheme) {
+            setTheme(savedTheme);
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+    }, []);
+
+    const toggleTheme = () => {
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    };
 
     return (
         <div className="fixed z-50 bottom-0 lg:top-0 lg:left-0 w-full lg:h-screen lg:w-16 flex flex-row lg:flex-col bg-[rgba(255,255,255,0.2)] shadow-lg backdrop-blur-2xl">
@@ -25,7 +42,7 @@ const Navbar = () => {
                 }}>
                 <SideBarIcon icon={<BsSearch size="20" />} text='Search coins 🔍' toUrl='' />
             </div>
-            {/* <SideBarIcon icon={<ThemeController />} text='Toggle Theme' toUrl='' /> */}
+            <SideBarIcon icon={<ThemeController theme={theme} toggleTheme={toggleTheme} />} text='Toggle theme' toUrl='' />
             <SearchModal />
         </div>
     );

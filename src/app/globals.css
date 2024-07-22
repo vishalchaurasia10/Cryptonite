@@ -13,7 +13,7 @@ html {
 @layer components {
   .sidebar-icon {
     @apply relative flex items-center justify-center 
-        h-12 w-12 mt-2 mb-2 mx-auto  
+        h-11 w-11 lg:h-12 lg:w-12 mt-2 mb-2 mx-auto  
         hover:bg-green-600 bg-gray-800 
         text-slate-300 hover:text-white
         hover:rounded-xl rounded-3xl
@@ -31,7 +31,7 @@ html {
   .sidebar-hr {
     @apply bg-gray-800 
         border border-gray-800 rounded-full
-        mx-2;
+        mx-0 lg:mx-2;
   }
 }
 
