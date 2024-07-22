@@ -2,6 +2,11 @@
 
 Welcome to the Cryptonite Crypto Dashboard! This comprehensive application provides real-time information and analytics on various cryptocurrencies. Below is a detailed overview of the features, pages, and technologies used in this project.
 
+`Note`
+-  Drag/Drop feature is only available for coins and not for companies listed on the homepage.
+-  For drag/drop hover over the coin name/icon in the list --> cursor will turn into hand and now you can drag the icon. Once drag is started a bitcoin box will be shown in the left corner where you can drop the coin.
+-  For the first time when you go to website it will be system's default mode. In the side navigation bar you can toggle the mode and navigate the dashboard.
+
 ## Key Features/ Implementations
 - **Dark/Light Mode**: Users can toggle between dark and light themes. The selected theme is stored in local storage, ensuring the user's choice persists even after refreshing the page.
 - **Search Suggestions**: As users type in the search bar, relevant coin suggestions are displayed using debouncing.
