@@ -40,10 +40,10 @@ Welcome to the Cryptonite Crypto Dashboard! This comprehensive application provi
 </div>
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/72426074-d7e5-4697-9dee-79a6504362bc" height="151px"/>
-  <img src="https://github.com/user-attachments/assets/13555c5b-7842-45fc-8479-82bfb78087f0" height="151px"/>
-  <img src="https://github.com/user-attachments/assets/b123c9b5-4222-41ca-9318-271013246253" height="151px"/>
-  <img src="https://github.com/user-attachments/assets/50fe3bc3-95c3-474f-b265-3cf4f6faf616" height="151px"/>
+  <img src="https://github.com/user-attachments/assets/72426074-d7e5-4697-9dee-79a6504362bc" height="225px"/>
+  <img src="https://github.com/user-attachments/assets/13555c5b-7842-45fc-8479-82bfb78087f0" height="225px"/>
+  <img src="https://github.com/user-attachments/assets/b123c9b5-4222-41ca-9318-271013246253" height="225px"/>
+  <img src="https://github.com/user-attachments/assets/50fe3bc3-95c3-474f-b265-3cf4f6faf616" height="225px"/>
   <img src="https://github.com/user-attachments/assets/f891c4f4-ad6d-4a34-a9b5-3a0f78c4fca6" width="45%"/>
 </div>
 
@@ -103,8 +103,8 @@ To run this project locally, follow these steps:
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/yourusername/cryptonite-crypto-dashboard.git
-   cd cryptonite-crypto-dashboard
+   git clone https://github.com/vishalchaurasia10/cryptonite.git
+   cd cryptonite
    ```
 
 2. **Install dependencies:**
