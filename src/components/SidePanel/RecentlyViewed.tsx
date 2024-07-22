@@ -3,13 +3,15 @@ import Image from 'next/image';
 import React from 'react'
 import Link from 'next/link';
 import useSearchStore from '@/store/Search';
+import useThemeStore from '@/store/Theme';
 
 const RecentlyViewed = () => {
 
     const { suggestions } = useSearchStore((state) => state);
+    const { theme } = useThemeStore((state) => state);
 
     return (
-        <div className='side-panel h-1/3 mt-10 overflow-y-auto border border-gray-300 rounded-lg p-4 shadow-2xl shadow-gray-400'>
+        <div className={`side-panel h-1/3 mt-10 overflow-y-auto rounded-lg p-4 ${theme == 'light' ? 'shadow-2xl shadow-gray-400 border border-gray-300' : 'border border-gray-400'}`}>
             <div className='overflow-x-auto font-poppins'>
                 <div className='flex justify-between items-center px-2 pb-5'>
                     <p className='sticky font-bold text-lg lg:text-2xl'>Recently Viewed</p>

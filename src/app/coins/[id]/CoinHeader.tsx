@@ -8,10 +8,12 @@ import useWatchlistStore from '@/store/Watchlist'
 import { AnimatePresence, motion } from 'framer-motion'
 import HeaderLoading from '@/components/loading/HeaderLoading'
 import toast from 'react-hot-toast'
+import useThemeStore from '@/store/Theme'
 
 const CoinHeader = ({ coin, loading }: { coin: CoinData | null, loading: boolean }) => {
 
     const { addCoin } = useWatchlistStore((state) => state)
+    const { theme } = useThemeStore((state) => state)
 
     return (
         <div className='header font-poppins w-full'>
@@ -26,7 +28,7 @@ const CoinHeader = ({ coin, loading }: { coin: CoinData | null, loading: boolean
                         className='header font-poppins space-y-2 w-full mb-5'
                     >
 
-                        <Image className='h-8 w-8 border rounded-lg p-1' src={coin?.image?.thumb ?? ''} alt='coinImage' width='100' height='100' />
+                        <Image className={`h-8 w-8 ${theme == 'light' ? 'border' : 'border border-gray-400'} rounded-lg p-1`} src={coin?.image?.thumb ?? ''} alt='coinImage' width='100' height='100' />
                         <h1 className='text-gray-500 '>{coin?.name}</h1>
                         <div className='flex items-center justify-between'>
                             <div className='flex items-center space-x-2'>

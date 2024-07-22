@@ -1,5 +1,6 @@
 'use client'
 import TableLoading from '@/components/loading/TableLoading'
+import useThemeStore from '@/store/Theme'
 import useTrendingStore from '@/store/Trending'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
@@ -12,6 +13,7 @@ import { FaChevronRight } from 'react-icons/fa'
 const TrendingMarket = () => {
 
     const { data, fetchData, loading } = useTrendingStore((state) => state)
+    const { theme } = useThemeStore((state) => state)
 
     useEffect(() => {
         if (data.length === 0) {
@@ -22,7 +24,7 @@ const TrendingMarket = () => {
     }, [])
 
     return (
-        <div className='font-poppins w-full border border-gray-300 rounded-lg py-5 px-3 lg:p-6 min-h-screen shadow-2xl shadow-gray-400'>
+        <div className={`font-poppins w-full rounded-lg py-5 px-3 lg:p-6 min-h-screen  ${theme == 'light' ? 'shadow-2xl shadow-gray-400 border border-gray-300' : 'border border-gray-400'}`}>
             <Toaster />
             <TableLoading loading={loading} />
             <AnimatePresence>

@@ -5,10 +5,12 @@ import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import SearchLoading from './loading/SearchLoading'
 import { motion, AnimatePresence } from 'framer-motion'
+import useThemeStore from '@/store/Theme'
 
 const SearchModal = () => {
     const { fetchSuggestions, loading, setQuery, suggestions } = useSearchStore((state) => state)
     const [searchTerm, setSearchTerm] = useState('')
+    const { theme } = useThemeStore()
 
     useEffect(() => {
         const handler = setTimeout(() => {
@@ -31,9 +33,9 @@ const SearchModal = () => {
         <div className='font-poppins'>
             <dialog id="my_modal_2" className="modal">
                 <div className="modal-box pt-0 font-poppins">
-                    <div className='flex justify-center items-center sticky -top-0 py-4 left-0 w-full bg-white'>
+                    <div className={`flex justify-center items-center sticky -top-0 py-4 left-0 w-full ${theme == 'light' ? 'bg-white' : 'dark:bg-[#1e2329]'}`}>
                         <input
-                            className="p-4 my-2 rounded-lg w-full outline-none placeholder:text-[#262626] border-2 border-gray-300"
+                            className={`p-4 my-2 rounded-lg w-full outline-none border-2 border-gray-300  ${theme == 'light' ? 'bg-white' : 'dark:bg-[#1e2329]'}`}
                             type="text"
                             placeholder='Search Coins'
                             value={searchTerm}

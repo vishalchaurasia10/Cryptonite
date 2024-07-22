@@ -9,10 +9,12 @@ import TableLoading from '@/components/loading/TableLoading';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
 import { AiOutlineMinusCircle } from 'react-icons/ai';
+import useThemeStore from '@/store/Theme';
 
 
 const WatchListMainComponent = () => {
     const { data, fetchData, loading, removeCoin } = useWatchlistStore((state) => state);
+    const { theme } = useThemeStore((state) => state);
     const arr = ['price_change_24h', 'price_change_7d', 'price_change_30d', 'price_change_1y'];
 
     useEffect(() => {
@@ -35,7 +37,7 @@ const WatchListMainComponent = () => {
     };
 
     return (
-        <div className='font-poppins w-full border border-gray-300 min-h-screen rounded-lg py-5 px-3 lg:p-6 shadow-2xl shadow-gray-400'>
+        <div className={`font-poppins w-full rounded-lg py-5 px-3 lg:p-6 min-h-screen  ${theme == 'light' ? 'shadow-2xl shadow-gray-400 border border-gray-300' : 'border border-gray-400'}`}>
             <Toaster />
             <TableLoading loading={loading} />
             <AnimatePresence>

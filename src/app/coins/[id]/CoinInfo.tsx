@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { CoinData } from './CoinData'
 import TableLoading from '@/components/loading/TableLoading'
 import { AnimatePresence, motion } from 'framer-motion'
+import useThemeStore from '@/store/Theme'
 
 export const checkForNull = (value: string | number | null) => {
     if (value === null) {
@@ -20,12 +21,14 @@ export const checkForNull = (value: string | number | null) => {
 
 const CoinInfo = ({ coin, loading }: { coin: CoinData | null, loading: boolean }) => {
 
+    const { theme } = useThemeStore((state) => state)
+
     useEffect(() => {
         console.log(coin)
     }, [coin])
 
     return (
-        <div className='font-poppins p-2 space-y-4 w-full border border-gray-300 rounded-lg py-5 px-3 lg:p-6 shadow-2xl shadow-gray-400'>
+        <div className={`font-poppins w-full rounded-lg py-5 px-3 lg:p-6 min-h-screen p-2 space-y-4  ${theme == 'light' ? 'shadow-2xl shadow-gray-400 border border-gray-300' : 'border border-gray-400'}`}>
             <TableLoading loading={loading} />
             <AnimatePresence>
                 {!loading && coin && (

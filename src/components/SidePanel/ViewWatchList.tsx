@@ -4,10 +4,12 @@ import { useEffect } from "react";
 import { FaBitcoin } from "react-icons/fa";
 import WatchListSideMenu from "./WatchListSideMenu";
 import toast, { Toaster } from "react-hot-toast";
+import useThemeStore from "@/store/Theme";
 
 
 const ViewWatchList = () => {
     const { activeCoin, setActiveCoin, addCoin, coinId, loadCoinsFromLocalStorage } = useWatchlistStore((state) => state);
+    const { theme } = useThemeStore((state) => state);
 
     useEffect(() => {
         loadCoinsFromLocalStorage((message: string) => {
@@ -24,7 +26,7 @@ const ViewWatchList = () => {
     }
 
     return (
-        <div className='side-panel h-1/2 overflow-y-auto border border-gray-300 rounded-lg p-4 shadow-2xl shadow-gray-400'>
+        <div className={`side-panel h-1/2 overflow-y-auto rounded-lg p-4 ${theme == 'light' ? 'shadow-2xl shadow-gray-400 border border-gray-300' : 'border border-gray-400'}`}>
             <Toaster />
             {
                 activeCoin ?

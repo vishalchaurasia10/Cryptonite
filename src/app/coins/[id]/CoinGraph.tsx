@@ -1,6 +1,7 @@
 'use client'
 import { formatYAxis } from '@/app/home/HomeGraphComponent';
 import GraphLoading from '@/components/loading/GraphLoading';
+import useThemeStore from '@/store/Theme';
 import React, { useEffect, useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import {
@@ -16,6 +17,7 @@ const CoinGraph = ({ id }: { id: string }) => {
 
     const [data, setData] = useState<CoinGraphData[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const { theme } = useThemeStore((state) => state);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -57,7 +59,7 @@ const CoinGraph = ({ id }: { id: string }) => {
     return (
         <>
             <Toaster />
-            <div className='w-full flex justify-center items-center py-5 pt-8 lg:pt-10 lg:py-10 pr-5 lg:pr-10 border border-gray-300 rounded-lg shadow-2xl shadow-gray-400 mb-10 relative min-h-[450px]'>
+            <div className={`w-full flex justify-center items-center py-5 pt-8 lg:pt-10 lg:py-10 pr-5 lg:pr-10  ${theme == 'light' ? 'shadow-2xl shadow-gray-400 border border-gray-300' : 'border border-gray-400'} rounded-lg mb-10 relative min-h-[450px]`}>
                 <GraphLoading loading={loading} />
                 {!loading && <ResponsiveContainer className='w-full' width="100%" height={400}>
                     <AreaChart

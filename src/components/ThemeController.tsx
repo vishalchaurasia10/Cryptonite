@@ -1,6 +1,11 @@
+
+import useThemeStore from '@/store/Theme';
 import React from 'react'
 
-const ThemeController = ({ toggleTheme, theme }: { toggleTheme: () => void, theme: string }) => {
+const ThemeController = () => {
+
+    const { theme, toggleTheme } = useThemeStore();
+
     return (
         <div
             className="p-4 m-4 cursor-pointer flex items-center justify-center">
