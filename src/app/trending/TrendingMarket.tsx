@@ -2,6 +2,7 @@
 import TableLoading from '@/components/loading/TableLoading'
 import useThemeStore from '@/store/Theme'
 import useTrendingStore from '@/store/Trending'
+import useWatchlistStore from '@/store/Watchlist'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,6 +14,7 @@ import { FaChevronRight } from 'react-icons/fa'
 const TrendingMarket = () => {
 
     const { data, fetchData, loading } = useTrendingStore((state) => state)
+    const { activeCoin, setActiveCoin } = useWatchlistStore((state) => state);
     const { theme } = useThemeStore((state) => state)
 
     useEffect(() => {
@@ -59,7 +61,11 @@ const TrendingMarket = () => {
                                     {data.map((coin, index) => (
                                         <tr key={index}>
                                             <Link href={`/coins/${coin.id}`} passHref>
-                                                <td className='flex space-x-2 items-center'>
+                                                <td
+                                                    onDragStart={() => setActiveCoin(coin.id)}
+                                                    onDragEnd={() => setActiveCoin(null)}
+                                                    draggable
+                                                    className='flex space-x-2 items-center hover:underline cursor-grab'>
                                                     <Image className='h-4 w-4 rounded-full' src={coin.thumb} width={100} height={100} alt={coin.name} />
                                                     <span>{coin.name}</span>
                                                 </td>
